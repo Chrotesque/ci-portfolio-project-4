@@ -1,3 +1,34 @@
 from django.contrib import admin
+from .models import Category, Article, Comment
+from django_summernote.admin import SummernoteModelAdmin
 
-# Register your models here.
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+
+    list_display = ('name',)
+
+
+@admin.register(Article)
+class ArticleAdmin(SummernoteModelAdmin):
+
+    fields = ('title', 'slug', 'body', 'author', 'category', 'header_image',
+              'visible')
+    prepopulated_fields = {'slug': ('title',)}
+    list_filter = ('visible', 'created_date')
+    list_display = ('title', 'slug', 'updated_date', 'created_date', 'visible')
+    search_fields = ['title', 'body', 'slug']
+    summernote_fields = ('body')
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+
+    fields = ('body', 'author', 'article', 'visible')
+    list_display = ('author', 'body', 'article', 'created_date', 'visible')
+    list_filter = ('visible', 'created_date')
+    search_fields = ['author', 'body']
+    actions = ['approve_comments']
+
+    def approve_comments(self, request, queryset):
+        queryset.update(visible=True)
