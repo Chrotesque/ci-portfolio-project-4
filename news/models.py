@@ -5,6 +5,7 @@ from cloudinary.models import CloudinaryField
 
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True)
+    slug = models.SlugField(max_length=30, null=True, unique=True)
 
     class Meta:
         ordering = ['name']

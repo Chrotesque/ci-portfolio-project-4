@@ -7,7 +7,8 @@ from django_summernote.admin import SummernoteModelAdmin
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
 
-    list_display = ('name',)
+    list_display = ('name', 'slug')
+    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Article)

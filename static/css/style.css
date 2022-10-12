@@ -1,0 +1,38 @@
+body {
+    background-color: #EAE6E3;
+}
+
+.brand {
+    font-family: Lato, sans-serif;
+    color: #D1A99A;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+.article {
+    background-color: #24201C;
+    color: #EAE6E3;
+}
+
+a.nav-link {
+    font-family: Lato, sans-serif;
+    color: #D1A99A;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a.nav-link:hover {
+    color: #C14953;
+}
+
+.dark-bg {
+    background-color: #24201C;
+}
+
+.offcanvas.offcanvas-end {
+    width: 50vw;
+}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block nav %}
+
+{% for category in categories %}
+<li><a class="dropdown-item" href="{{ category.slug }}/#">{{ category.name }}</a></li>
+{% endfor %}
+
+{%endblock%}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        {% for article in articles %}
+        <div class="col-sm-12 col-md-6 col-lg-3 article m-1 p-3">
+            <a href="#">{{ article.title }}</a>
+            <p class="author mt-2">by {{ article.author }}</p>
+            <hr />
+            <p class="post-date">{{ article.created_date}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% if is_paginated %}
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+        {% endif %}
+        {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+{%endblock%}
