@@ -1,33 +1,38 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
-from django.views import generic
+from django.shortcuts import render, get_object_or_404
+from django.views import generic, View
 from .models import Article, Category
 
 
-# class ArticleList(generic.ListView):
-#     model = Article
-#     queryset = Article.objects.filter(visible=1).order_by('-created_date')
-#     template_name = 'index.html'
-#     paginate_by = 10
-
-
-# class CategoryList(generic.ListView):
-#     model = Category
-#     queryset = Category.objects.order_by('name')
-#     template_name = 'index.html'
-
-def view_items(request):
-    articles = Article.objects.filter(visible=1).order_by('-created_date')
+# adds categories to navigation on base.html
+def categories_to_base(request):
     categories = Category.objects.order_by('name')
+    context = {'categories', }
+    return render(request, "base_html", context)
 
-    paginator = Paginator(articles, 3)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
 
-    context = {
-        'articles': articles,
-        'categories': categories,
-        'page_obj': page_obj
-    }
+# listing of articles in index.html
+class ArticleList(generic.ListView):
+    model = Article
+    queryset = Article.objects.filter(visible=True).order_by('-created_date')
+    template_name = 'index.html'
+    paginate_by = 2
 
-    return render(request, 'index.html', context)
+
+# detailed article view
+class ArticleView(View):
+
+    def get(self, request, slug, *args, **kwargs):
+        queryset = Article.objects.filter(visible=True)
+        article = get_object_or_404(queryset, slug=slug)
+        comments = article.comments.filter(visible=True) \
+            .order_by('created_date')
+
+        return render(
+            request,
+            "article_detail.html",
+            {
+                "article": article,
+                "comments": comments
+            }
+        )

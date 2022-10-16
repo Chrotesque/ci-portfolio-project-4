@@ -5,10 +5,11 @@ from cloudinary.models import CloudinaryField
 
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True)
-    slug = models.SlugField(max_length=30, null=True, unique=True)
+    slug = models.SlugField(max_length=30, unique=True)
 
     class Meta:
         ordering = ['name']
+        verbose_name_plural = "Categories"
 
     def __str__(self):
         return self.name
@@ -31,7 +32,7 @@ class Article(CommonFields):
                                related_name='articles')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  null=True)
-    header_image = CloudinaryField('image', default='placerholder')
+    header_image = CloudinaryField('image', default='placeholder')
 
     class Meta:
         ordering = ['created_date']

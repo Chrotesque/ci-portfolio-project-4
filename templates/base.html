@@ -24,7 +24,7 @@
                 <div class="col-md-12">
                     <nav class="navbar navbar-expand-md">
                         <div class="container-fluid">
-                            <a class="navbar-brand" href="#">Independent Informant</a>
+                            <a class="navbar-brand" href="{% url 'home' %}">Independent Informant</a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
@@ -36,23 +36,23 @@
                                 <div class="offcanvas-body">
                                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">Home</a>
+                                            <a href="{% url 'home' %}" class="nav-link">Home</a>
                                         </li>
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Categories
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-dark">
-                                                {% block nav %}
-                                                <!-- Content Goes here -->
-                                                {% endblock nav %}
+                                                {% for category in categories %}
+                                                <li><a class="dropdown-item" href="{{ category.slug }}/#">{{ category.name }}</a></li>
+                                                {% endfor %}
                                             </ul>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">About</a>
+                                            <a href="{% url 'about' %}" class="nav-link">About</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">Contact</a>
+                                            <a href="{% url 'contact' %}" class="nav-link">Contact</a>
                                         </li>
                                     </ul>
                                 </div>
