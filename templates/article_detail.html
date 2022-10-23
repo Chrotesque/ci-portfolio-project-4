@@ -1,5 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
+{% load crispy_forms_tags %}
+
 <div class="masthead">
     <div class="container">
         <div class="row g-0">
@@ -12,8 +14,8 @@
             </div>
             <div class="d-none d-md-block col-md-6 masthead-image">
                 <!-- The featured image URL goes in the src attribute -->
-                {% if "placerholder" in article.header_image.url %}
-                <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg" width="100%">
+                {% if "placeholder" in article.header_image.url %}
+                <img src="https://res.cloudinary.com/dkinvak0k/image/upload/v1666234731/oiheobvppqbmcrgevish.png" width="100%">
                 {% else %}
                 <img src=" {{ article.header_image.url }}" width="100%">
                 {% endif %}
@@ -39,6 +41,11 @@
             <hr>
         </div>
     </div>
+    {% if article.comment_mode == "OFF" %}
+    <div class="alert alert-danger" role="alert">
+        Comments for this article have been deactivated.
+    </div>
+    {% else %}
     <div class="row">
         <div class="col-md-8 card mb-4  mt-3 ">
             <h3>Comments:</h3>
@@ -63,10 +70,28 @@
         </div>
         <div class="col-md-4 card mb-4  mt-3 ">
             <div class="card-body">
-                <!-- For later -->
+
+                {% if user.is_authenticated %}
+                {% if commented %}
+                <div class="alert alert-success" role="alert">
+                    Your comment is awaiting approval.
+                </div>
+                {% else %}
+                <h3>Leave a comment:</h3>
+                <p>Posting as: {{ user.username }}</p>
+                <form method="post">
+                    {{ comment_form | crispy }}
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-signup-btn-lg">Submit</button>
+                </form>
+
+                {% endif %}
+                {% endif %}
+
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 
 {% endblock content %}

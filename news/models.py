@@ -5,7 +5,7 @@ from cloudinary.models import CloudinaryField
 
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True)
-    slug = models.SlugField(max_length=30, unique=True)
+    slug = models.SlugField(max_length=30, unique=True, default="")
 
     class Meta:
         ordering = ['name']
@@ -33,6 +33,16 @@ class Article(CommonFields):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  null=True)
     header_image = CloudinaryField('image', default='placeholder')
+    OFF = 'OFF'
+    MOD = 'MOD'
+    AAC = 'AAC'
+    COMMENT_CHOICES = [
+        (OFF, 'Off'),
+        (MOD, 'Moderated'),
+        (AAC, 'Auto-Approve'),
+    ]
+    comment_mode = models.CharField(max_length=3, choices=COMMENT_CHOICES,
+                                    default=AAC)
 
     class Meta:
         ordering = ['created_date']
