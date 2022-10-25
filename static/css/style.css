@@ -36,3 +36,16 @@ a.nav-link:hover {
 .offcanvas.offcanvas-end {
     width: 50vw;
 }
+
+.fade {
+    opacity: 1;
+    -webkit-transition: opacity 1s linear;
+    -moz-transition: opacity 1s linear;
+    -ms-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    transition: opacity 1s linear;
+}
+
+.sticky-top {
+    top: 2em;
+}

@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from .models import Article, Category, Comment
 from django.contrib.auth.models import User
 from .forms import CommentForm
@@ -67,7 +68,8 @@ class ArticleView(View):
         user = request.POST.get("author")
 
         if comment_form.is_valid():
-            print(request.POST)
+            message = "Comment successfully created."
+            messages.add_message(request, messages.SUCCESS, message)
             comment_form.instance.name = request.user.username
             comment = comment_form.save(commit=False)
             comment.article = article
@@ -103,8 +105,10 @@ def updateComment(request, slug, id):
     if request.method == 'POST':
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
+            message = "Comment successfully edited."
+            messages.add_message(request, messages.SUCCESS, message)
             form.save()
-            return HttpResponseRedirect(reverse('article_detail', args=[slug]))
+        return HttpResponseRedirect(reverse('article_detail', args=[slug]))
 
     context = {'comment_form': form, 'comment': comment, }
     return render(
@@ -120,6 +124,8 @@ def deleteComment(request, slug, id):
     comment = get_object_or_404(Comment, id=id)
 
     if request.method == 'POST':
+        message = "Comment successfully deleted."
+        messages.add_message(request, messages.SUCCESS, message)
         comment.delete()
         return HttpResponseRedirect(reverse('article_detail', args=[slug]))
 
