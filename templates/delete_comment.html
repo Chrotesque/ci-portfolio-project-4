@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container">
+    <div class="row">
+        <p>Article: <strong>"{{ article.title }}"</strong></p>
+        <p>Your comment: <strong>{{ comment.body }}</strong></p>
+        <p>Are you sure you want to delete your comment shown above?</p>
+        <form method="POST">
+            {% csrf_token %}
+            <a href="{% url 'article_detail' article.slug %}">Cancel</a>
+            <button type="submit" class="btn btn-signup-btn-lg">Confirm Deletion</button>
+        </form>
+
+    </div>
+</div>
+
+{%endblock%}

@@ -1,6 +1,4 @@
-{% extends 'base.html' %} {% block content %}
-
-{% load crispy_forms_tags %}
+{% extends 'base.html' %} {% block content %} {% load crispy_forms_tags %}
 
 <div class="masthead">
     <div class="container">
@@ -48,7 +46,14 @@
     {% else %}
     <div class="row">
         <div class="col-md-8 card mb-4  mt-3 ">
-            <h3>Comments:</h3>
+            <h3>
+                Comments
+                {% with comments.count as comment_counter %}
+                <strong class="text-secondary"><i class="far fa-comments"></i>
+                    {{ comment_counter }}
+                </strong>
+                {% endwith %}
+            </h3>
             <div class="card-body">
                 <!-- We want a for loop inside the empty control tags to iterate through each comment in comments -->
                 {% for comment in comments %}
@@ -64,12 +69,22 @@
                     <!-- The body of the comment goes before the | -->
                     {{ comment.body | linebreaks }}
                 </div>
+                <div class="col-1">
+                    <strong>
+                        {% if user.is_authenticated and comment.author.id == user.id %}
+
+                        <a href="{% url 'update_comment' article.slug comment.id %}" class="btn-modify">Update</a>
+                        <a href="{% url 'delete_comment' article.slug comment.id %}" class="btn-modify">Delete</a>
+
+                        {% endif %}
+                    </strong>
+                </div>
                 <!-- Our for loop ends here -->
                 {% endfor %}
             </div>
         </div>
-        <div class="col-md-4 card mb-4  mt-3 ">
-            <div class="card-body">
+        <div class=" col-md-4 card mb-4 mt-3 ">
+            <div class=" card-body">
 
                 {% if user.is_authenticated %}
                 {% if commented %}
