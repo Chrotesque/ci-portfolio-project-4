@@ -12,7 +12,7 @@ from .forms import CommentForm
 def categories_to_base(request):
     categories = Category.objects.order_by('name')
     context = {'categories', }
-    return render(request, "base_html", context)
+    return render(request, "base.html", context)
 
 
 # listing of articles in index.html
@@ -26,7 +26,7 @@ class ArticleList(generic.ListView):
 # listing of articles per category
 class CategoryList(generic.ListView):
     model = Article
-    template_name = 'index.html'
+    template_name = 'category_listing.html'
     paginate_by = 9
 
     def get_queryset(self, *args, **kwargs):
@@ -66,6 +66,7 @@ class ArticleView(View):
             .order_by('created_date')
         comment_form = CommentForm(data=request.POST)
         user = request.POST.get("author")
+        commented = False
 
         if comment_form.is_valid():
             message = "Comment successfully created."
