@@ -21,14 +21,14 @@ class ArticleList(generic.ListView):
     model = Article
     queryset = Article.objects.filter(visible=True).order_by('-created_date')
     template_name = 'index.html'
-    paginate_by = 9
+    paginate_by = 16
 
 
 # listing of articles per category
 class CategoryList(generic.ListView):
     model = Article
     template_name = 'category_listing.html'
-    paginate_by = 9
+    paginate_by = 16
 
     def get_queryset(self, *args, **kwargs):
         queryset = self.model.objects.all()

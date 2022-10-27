@@ -3,33 +3,37 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        {{ article.title }}
-        {% for article in article_list %}
-        <div class="col-sm-12 col-md-6 col-lg-3 article m-1 p-3">
-            <a href="{% url 'article_detail' article.slug %}" class="nav-link">{{ article.title }}</a>
-            <p class="author mt-2">by {{ article.author }}</p>
-            <hr />
-            <p class="post-date">{{ article.created_date}}</p>
+<div class="row">
+    {% for article in article_list %}
+    <div class="listing col-sm-12 col-md-6 col-lg-4 col-xl-3">
+        <div class="card mb-3">
+            <div class="card-body">
+                <a href="{% url 'article_detail' article.slug %}" class="card-link">{{ article.title }}</a>
+                <p class="author mt-2"><strong>by {{ article.author }}</strong></p>
+                <hr />
+                <p class="post-date">{{ article.created_date}}</p>
+                <hr />
+                <p class="category">&raquo; <a class="a-link" href="{% url 'category_listing' article.category.slug %}/#">{{ article.category }}</a></p>
+            </div>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
 </div>
 
 {% if is_paginated %}
-<nav aria-label="Page navigation">
+<nav class="mt-4" aria-label="Page navigation">
     <ul class="pagination justify-content-center">
         {% if page_obj.has_previous %}
-        <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+        <li><a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary bold">&laquo; Previous </a></li>
         {% endif %}
         {% if page_obj.has_next %}
-        <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+        <li><a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary"> Next &raquo;</a></li>
 
         {% endif %}
     </ul>
 </nav>
 {% endif %}
+
 
 <script src="{% static 'js/script.js' %}"></script>
 

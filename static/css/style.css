@@ -1,5 +1,12 @@
 body {
     background-color: #EAE6E3;
+    padding-bottom: 100px;
+}
+
+div.listing .card {
+    border: none;
+    background-color: #24201C;
+    color: #EAE6E3;
 }
 
 .brand {
@@ -10,31 +17,44 @@ body {
 }
 
 .navbar-brand {
-    font-weight: 700;
-}
-
-.article {
-    background-color: #24201C;
-    color: #EAE6E3;
+    font-weight: 800;
 }
 
 a.nav-link {
     font-family: Lato, sans-serif;
-    color: #D1A99A;
+    color: #b26f57;
     text-decoration: none;
     font-weight: 600;
 }
 
+a.a-link {
+    font-family: Lato, sans-serif;
+    color: #b26f57;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+a.a-link:hover {
+    color: #543327;
+}
+
+a.card-link {
+    font-family: Lato, sans-serif;
+    color: #D1A99A;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+a.card-link:hover {
+    color: #b26f57;
+}
+
 a.nav-link:hover {
-    color: #C14953;
+    color: #543327;
 }
 
 .dark-bg {
     background-color: #24201C;
-}
-
-.offcanvas.offcanvas-end {
-    width: 50vw;
 }
 
 .fade {
@@ -46,6 +66,41 @@ a.nav-link:hover {
     transition: opacity 1s linear;
 }
 
+div.comments {
+    background-color: #edeae8;
+}
+
+.masthead-image img {
+    border-radius: 8px;
+}
+
+p.comment {
+    margin-left: 200px;
+}
+
+p.category {
+    font-size: 1.5em;
+}
+
+.card-body p.category {
+    font-size: 1em;
+}
+
+p.post-category {
+    text-decoration: none;
+}
+
 .sticky-top {
     top: 2em;
+}
+
+.btn-primary {
+    background-color: #d1a99a;
+    color: #000;
+    border-color: #d1a99a;
+}
+
+.btn-primary:hover {
+    background-color: #b26f57;
+    border-color: #b26f57;
 }

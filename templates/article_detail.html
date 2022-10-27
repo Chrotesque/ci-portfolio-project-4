@@ -6,17 +6,18 @@
 <div class="masthead">
     <div class="container">
         <div class="row g-0">
-            <p class="post-title"><a href="{% url 'category_listing' article.category.slug %}/#">{{ article.category }}</a></p>
             <div class="col-md-6 masthead-text">
                 <!-- Post title goes in these h1 tags -->
                 <h1 class="post-title">{{ article.title }}</h1>
                 <!-- Post author goes before the | the post's created date goes after -->
-                <p class="post-subtitle">written by {{ article.author }} - {{ article.created_date }}</p>
+                <p class="post-subtitle">written by <strong>{{ article.author }}</strong> - {{ article.created_date }}</p>
+                <p class="category">In <a class="a-link" href="{% url 'category_listing' article.category.slug %}/#">{{ article.category }}</a></p>
+
             </div>
             <div class="d-none d-md-block col-md-6 masthead-image">
                 <!-- The featured image URL goes in the src attribute -->
                 {% if "placeholder" in article.header_image.url %}
-                <img src="https://res.cloudinary.com/dkinvak0k/image/upload/v1666234731/oiheobvppqbmcrgevish.png" width="100%">
+                <img src="https://res.cloudinary.com/dkinvak0k/image/upload/v1666863083/oiheobvppqbmcrgevish_ptkfhd.png" width="100%">
                 {% else %}
                 <img src=" {{ article.header_image.url }}" width="100%">
                 {% endif %}
@@ -27,7 +28,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col card mb-4  mt-3 left  top">
+        <div class="col card mb-2  mt-3 left  top">
             <div class="card-body">
                 <!-- The post content goes inside the card-text. -->
                 <!-- Use the | safe filter inside the template tags -->
@@ -48,8 +49,8 @@
     </div>
     {% else %}
     <div class="row">
-        <div class="col-md-8 card mb-4  mt-3 ">
-            <h3>
+        <div class="col-md-12 card mb-4 mt-3">
+            <h3 class="mt-2">
                 Comments
                 {% with comments.count as comment_counter %}
                 <strong class="text-secondary"><i class="far fa-comments"></i>
@@ -58,36 +59,31 @@
                 {% endwith %}
             </h3>
             <div class="card-body">
-                <!-- We want a for loop inside the empty control tags to iterate through each comment in comments -->
                 {% for comment in comments %}
-                <div class="comments" style="padding: 10px;">
-                    <p class="font-weight-bold">
-                        <!-- The commenter's name goes here. Check the model if you're not sure what that is -->
-                        {{ comment.author }}
+                <div class="comments mb-3 p-4">
+                    <p>
+                        <strong>{{ comment.author }}</strong> wrote @
                         <span class=" text-muted font-weight-normal">
-                            <!-- The comment's created date goes here -->
-                            {{ comment.created_date }}
-                        </span> wrote:
+                            {{ comment.created_date }}:
+                        </span>
                     </p>
-                    <!-- The body of the comment goes before the | -->
-                    {{ comment.body | linebreaks }}
-                </div>
-                <div class="col-1">
-                    <strong>
+                    <p>{{ comment.body | linebreaks }}</p>
+                    <div class="col-12 mb-4">
                         {% if user.is_authenticated and comment.author.id == user.id %}
 
-                        <a href="{% url 'update_comment' article.slug comment.id %}" class="btn-modify">Update</a>
-                        <a href="{% url 'delete_comment' article.slug comment.id %}" class="btn-modify">Delete</a>
+                        <a class="btn btn-primary" href="{% url 'update_comment' article.slug comment.id %}">Update</a>
+                        <a class="btn btn-primary" href="{% url 'delete_comment' article.slug comment.id %}">Delete</a>
 
                         {% endif %}
-                    </strong>
+                    </div>
                 </div>
-                <!-- Our for loop ends here -->
+
                 {% endfor %}
             </div>
         </div>
-        <div class=" col-md-4 card mb-4 mt-3 ">
-            <div class=" card-body">
+
+        <div class=" col-md-12 card mb-4 mt-3 ml-3">
+            <div class="card-body">
 
                 {% if user.is_authenticated %}
                 {% if commented %}
@@ -96,14 +92,20 @@
                 </div>
                 {% else %}
                 <h3>Leave a comment:</h3>
-                <p>Posting as: {{ user.username }}</p>
+                <p>Posting as <strong>{{ user.username }}</strong></p>
                 <form method="post">
                     {{ comment_form | crispy }}
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-signup-btn-lg">Submit</button>
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
                 </form>
 
                 {% endif %}
+                {% else %}
+
+                <div class="alert alert-warning mt-3" role="alert">
+                    To post comments you have to be logged in.
+                </div>
+
                 {% endif %}
 
             </div>
