@@ -10,9 +10,9 @@
             <div class="card-body">
                 <a href="{% url 'article_detail' article.slug %}" class="card-link">{{ article.title }}</a>
                 <p class="author mt-2"><strong>by {{ article.author }}</strong></p>
-                <hr />
+                <hr>
                 <p class="post-date">{{ article.created_date}}</p>
-                <hr />
+                <hr>
                 <p class="category">&raquo; <a class="a-link" href="{% url 'category_listing' article.category.slug %}/#">{{ article.category }}</a></p>
             </div>
         </div>

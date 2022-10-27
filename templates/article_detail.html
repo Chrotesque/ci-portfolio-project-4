@@ -17,9 +17,9 @@
             <div class="d-none d-md-block col-md-6 masthead-image">
                 <!-- The featured image URL goes in the src attribute -->
                 {% if "placeholder" in article.header_image.url %}
-                <img src="https://res.cloudinary.com/dkinvak0k/image/upload/v1666863083/oiheobvppqbmcrgevish_ptkfhd.png" width="100%">
+                <img alt="Placeholder Header Image" src="https://res.cloudinary.com/dkinvak0k/image/upload/v1666863083/oiheobvppqbmcrgevish_ptkfhd.png" style="width:100%">
                 {% else %}
-                <img src=" {{ article.header_image.url }}" width="100%">
+                <img alt="Article Header Image" src=" {{ article.header_image.url }}" style="width:100%">
                 {% endif %}
             </div>
         </div>
@@ -29,16 +29,12 @@
 <div class="container">
     <div class="row">
         <div class="col card mb-2  mt-3 left  top">
-            <div class="card-body">
-                <!-- The post content goes inside the card-text. -->
-                <!-- Use the | safe filter inside the template tags -->
-                <p class="card-text ">
-                    {{ article.body | safe }}
-                </p>
+            <div class="card-body mt-3">
+                {{ article.body | safe }}
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class=" row">
         <div class="col">
             <hr>
         </div>
@@ -61,13 +57,8 @@
             <div class="card-body">
                 {% for comment in comments %}
                 <div class="comments mb-3 p-4">
-                    <p>
-                        <strong>{{ comment.author }}</strong> wrote @
-                        <span class=" text-muted font-weight-normal">
-                            {{ comment.created_date }}:
-                        </span>
-                    </p>
-                    <p>{{ comment.body | linebreaks }}</p>
+                    <p><strong>{{ comment.author }}</strong> wrote @<span class=" text-muted font-weight-normal">{{ comment.created_date }}:</span></p>
+                    {{ comment.body | linebreaks }}
                     <div class="col-12 mb-4">
                         {% if user.is_authenticated and comment.author.id == user.id %}
 
