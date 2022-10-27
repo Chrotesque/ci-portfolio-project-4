@@ -19,6 +19,7 @@
 <br>
 
 # **Overview** ([^](#table-of-contents))
+Independent Informant is a small article based website that can be used for news or even blogging and features authentication and the ability to comment on articles, including the ability of admins to prevent comments on a per article basis.
 
 <br>
 
@@ -281,22 +282,22 @@ All automated tests work flawlessly:
 
 ## Google Lighthouse
 <details>
-<summary>Desktop - Listing of Articles</summary>
+<summary>Desktop - Listing of articles</summary>
 
 ![Wireframe - List View](readme/images/lighthouse_listing.png)
 </details>
 <details>
-<summary>Mobile - Listing of Articles</summary>
+<summary>Mobile - Listing of articles</summary>
 
 ![Wireframe - List View](readme/images/lighthouse_listingmobile.png)
 </details>
 <details>
-<summary>Desktop - Detailview of Article</summary>
+<summary>Desktop - Detailed view of an article</summary>
 
 ![Wireframe - List View](readme/images/lighthouse_article.png)
 </details>
 <details>
-<summary>Mobile - Detailview of Articles</summary>
+<summary>Mobile - Detailed view of an article</summary>
 
 ![Wireframe - List View](readme/images/lighthouse_articlemobile.png)
 </details>
