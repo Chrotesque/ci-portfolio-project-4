@@ -1,7 +1,7 @@
 # **Portfolio Project 4 - Independent Informant**
 ## Simple smallscale community based news site - <a href="https://chrotesque-ci-portfolio-4.herokuapp.com/" target="_blank">View deployed site here.</a>
 
-![AmIResponsive](readme/images/amiresponsive.jpg) 
+![AmIResponsive](readme/images/amiresponsive.png) 
 
 <br>
 
@@ -9,7 +9,7 @@
 
 1. [Overview](#overview-)
 2. [UX](#ux-)
-3. [Model/Agile](#model/agile-)
+3. [Model/Agile](#modelagile-)
 3. [Features](#features-)
 4. [Technologies Used](#technologies-used-)
 5. [Validation and Testing](#validation-and-testing-)
@@ -50,7 +50,9 @@
 - Depending on screen size, the amount of article-cards displayed changes dynamically
 
 ### Surface / Design
-TBD 
+For colors and fonts I decided to go with the following combination as basis for the project and then used various shades of the light orange seen in the picture below using http://coolors.co
+
+![Original Models](readme/images/googlefontpair.png)
 
 <br>
 
@@ -158,20 +160,40 @@ Tasks are linked to their User Stories, User Stories are linked to their Epics i
 
 - The navigation groups up all categories which are pulled from the database, as all articles are categorized
 
+    ![Navigation](readme/images/feature_nav.png)
+
 - The main page / index lists all articles sorted by date, regardless of category
+
+    ![Article Listing](readme/images/feature_articlelist.png)
 
 - The category specific pages list all category-relevant articles sorted by date
 
+    ![Category Listing](readme/images/feature_categorylist.png)
+
 - Articles can have 3 different comment modes:
     - Off: no comments allowed, for controversial topics that inevitably lead to trolls, hate and all kinds of behaviour typically best avoided entirely
+
+    ![Comments Off](readme/images/feature_commentoff.png)
+
     - Mod: comments have to be approved first, before they are shown
+
+    ![Comments Off](readme/images/feature_commentmod.png)
+
     - AAC: Auto approve comments, every comment posted will be visible right away - this is the default mode for all articles and can be changed on a per article basis
+
+    ![Comments Off](readme/images/feature_commentapp.png)
 
 - A logged in user has the option to edit and delete their own comments, if they so choose
 
+    ![Comments Off](readme/images/feature_commentoptions.png)
+
 - All administrative work of creating, editing and deleting articles and categories can be done through the standard Django admin panel, that also includes the moderation of comments
 
+    ![Comments Off](readme/images/django_admin.png)
+
 - All relevant user actions have an alarm popup to give feedback to the user of successful actions 
+
+    ![Comments Off](readme/images/feature_userfeedback.png)
 
 <br>
 
@@ -255,13 +277,29 @@ All automated tests work flawlessly:
 <br>
 
 ## a11y Color Contrast Accessibility Validator
-- TBD
+- No color contrast issues were found.
 
-## Google 
-- TBD
+## Google Lighthouse
+<details>
+<summary>Desktop - Listing of Articles</summary>
 
-## Known Issues 
-- TBD
+![Wireframe - List View](readme/images/lighthouse_listing.png)
+</details>
+<details>
+<summary>Mobile - Listing of Articles</summary>
+
+![Wireframe - List View](readme/images/lighthouse_listingmobile.png)
+</details>
+<details>
+<summary>Desktop - Detailview of Article</summary>
+
+![Wireframe - List View](readme/images/lighthouse_article.png)
+</details>
+<details>
+<summary>Mobile - Detailview of Articles</summary>
+
+![Wireframe - List View](readme/images/lighthouse_articlemobile.png)
+</details>
 
 <br>
 
