@@ -3,18 +3,6 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=30, unique=True)
-    slug = models.SlugField(max_length=30, unique=True, default="")
-
-    class Meta:
-        ordering = ['name']
-        verbose_name_plural = "Categories"
-
-    def __str__(self):
-        return self.name
-
-
 class CommonFields(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     body = models.TextField()
@@ -24,14 +12,26 @@ class CommonFields(models.Model):
         abstract = True
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+    slug = models.SlugField(max_length=30, unique=True)
+    visible = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = "Categories"
+
+    def __str__(self):
+        return self.name
+
+
 class Article(CommonFields):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     updated_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True,
                                related_name='articles')
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL,
-                                 null=True)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True)
     header_image = CloudinaryField('image', default='placeholder')
     OFF = 'OFF'
     MOD = 'MOD'
