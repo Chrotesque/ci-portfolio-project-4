@@ -6,6 +6,7 @@ from django.contrib import messages
 from .models import Article, Category, Comment
 from django.contrib.auth.models import User
 from .forms import CommentForm
+from django.utils import timezone
 
 
 # adds categories to navigation on base.html
