@@ -3,11 +3,25 @@
 <div class="container">
     <div class="row">
         <h3 class="mb-4">Update Comment</h3>
+        {% if user.is_authenticated %}
+        {% if comment.author.id == user.id %}
         <form method="post">
             {{ comment_form | crispy }}
             {% csrf_token %}
             <button type="submit" class="btn btn-primary mt-3">Update Comment</button>
         </form>
+        {% else %}
+        <div class="alert alert-warning mt-3" role="alert">
+            Access denied. You are not the author of the comment you're attempting to modify.
+        </div>
+        <a class="btn btn-primary" href="{% url 'article_detail' comment.article.slug %}">&laquo; Back to Article</a>
+        {% endif %}
+        {% else %}
+        <div class="alert alert-warning mt-3" role="alert">
+            Access denied. You have to be logged in order to modify comments.
+        </div>
+        <a class="btn btn-primary" href="{% url 'article_detail' comment.article.slug %}">&laquo; Back to Article</a>
+        {% endif %}
     </div>
 </div>
 

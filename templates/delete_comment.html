@@ -2,6 +2,9 @@
 
 <div class="container">
     <div class="row">
+        <h3 class="mb-4">Delete Comment</h3>
+        {% if user.is_authenticated %}
+        {% if comment.author.id == user.id %}
         <p>Article: <strong>"{{ article.title }}"</strong></p>
         <p><strong>Your comment:</strong></p>
         <p>{{ comment.body }}</p>
@@ -11,7 +14,18 @@
             <a class="btn btn-primary" href="{% url 'article_detail' article.slug %}">Cancel</a>
             <button type="submit" class="btn btn-primary">Confirm Deletion</button>
         </form>
-
+        {% else %}
+        <div class="alert alert-warning mt-3" role="alert">
+            Access denied. You are not the author of the comment you're attempting to modify.
+        </div>
+        <a class="btn btn-primary" href="{% url 'article_detail' comment.article.slug %}">&laquo; Back to Article</a>
+        {% endif %}
+        {% else %}
+        <div class="alert alert-warning mt-3" role="alert">
+            Access denied. You have to be logged in order to modify comments.
+        </div>
+        <a class="btn btn-primary" href="{% url 'article_detail' comment.article.slug %}">&laquo; Back to Article</a>
+        {% endif %}
     </div>
 </div>
 
